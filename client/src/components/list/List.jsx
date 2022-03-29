@@ -6,8 +6,7 @@ import { useRef, useState } from "react";
 import ListItem from "../listItem/ListItem";
 import "./list.scss";
 
-function List() {
-
+function List({ list }) {
     const [isMoved, setIsMoved] = useState(false);
     const [slideNumber, setSlideNumber] = useState(0);
 
@@ -25,31 +24,30 @@ function List() {
 
         if (direction === "right" && slideNumber < 5) {
             setSlideNumber(slideNumber + 1);
-            listRef.current.style.transform = `translateX(${-230 + distance}px)`;
+            listRef.current.style.transform = `translateX(${
+                -230 + distance
+            }px)`;
         }
     };
 
     return (
         <div className="list">
-            <span className="list__title">Supperman</span>
+            <span className="list__title">{list.title}</span>
             <div className="wrapper">
-            <ArrowBackIosOutlined
-                className="slider__arrow left"
-                onClick={() => handleClick("left")}
-                style={{ display: !isMoved && "none" }}
-            />
-            <div className="slider__container" ref={listRef}>
-                <ListItem />
-                <ListItem />
-                <ListItem />
-                <ListItem />
-                <ListItem />
-                <ListItem />
-            </div>
-            <ArrowForwardIosOutlined
-                className="slider__arrow right"
-                onClick={() => handleClick("right")}
-            />
+                <ArrowBackIosOutlined
+                    className="slider__arrow left"
+                    onClick={() => handleClick("left")}
+                    style={{ display: !isMoved && "none" }}
+                />
+                <div className="slider__container" ref={listRef}>
+                    {list.content.map((item, index) => (
+                        <ListItem key={index} item={item} index={index} />
+                    ))}
+                </div>
+                <ArrowForwardIosOutlined
+                    className="slider__arrow right"
+                    onClick={() => handleClick("right")}
+                />
             </div>
         </div>
     );
