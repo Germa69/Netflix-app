@@ -35,6 +35,9 @@ function App() {
         <Route path="register" element={<Register />} />
 
         <Route index path="/" element={<Home />} />
+        <Route path="/movies" element={<Home type="movies"/> } />
+        <Route path="/series" element={<Home type="series"/> } />
+
         <Route path="*" element={<NoMatch />} />
       </Routes>
 

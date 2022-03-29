@@ -2,11 +2,11 @@ import Navbar from "../../components/navbar/Navbar";
 import Featured from "../../components/featured/Featured";
 import "./home.scss";
 
-function Home() {
+function Home({ type }) {
     return (
         <div className="home">
             <Navbar />
-            <Featured />
+            <Featured type={type}/>
         </div>
     );
 }

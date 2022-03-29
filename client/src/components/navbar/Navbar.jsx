@@ -25,10 +25,10 @@ function Navbar() {
                     <Link to="/" className="navbar__left-link">
                         <span className="navbar__left-span">Homepage</span>
                     </Link>
-                    <Link to="/" className="navbar__left-link">
+                    <Link to="/series" className="navbar__left-link">
                         <span className="navbar__left-span hide-on-tablet">Series</span>
                     </Link>
-                    <Link to="/" className="navbar__left-link">
+                    <Link to="/movies" className="navbar__left-link">
                         <span className="navbar__left-span hide-on-tablet">Movies</span>
                     </Link>
                     <span className="navbar__left-span">New and Popular</span>
