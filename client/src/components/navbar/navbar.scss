@@ -1,0 +1,99 @@
+@import "../../app.scss";
+
+.navbar {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+
+  width: 100%;
+  color: white;
+  font-size: 14px;
+  background: linear-gradient(to top, transparent 0%, rgb(0, 0, 0, 0.3) 50%);
+
+  &.scrolled {
+    background-color: var(--main-color);
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0px 50px;
+    height: 70px;
+
+    .navbar__left {
+      display: flex;
+      align-items: center;
+
+      .navbar__left-img {
+        height: 25px;
+        margin-right: 40px;
+
+        @include mobile {
+          display: none;
+        }
+      }
+
+      .navbar__left-link {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .navbar__left-span {
+        margin-right: 20px;
+        cursor: pointer;
+
+        @include tablet {
+          display: none;
+        }
+
+        &.hide-on-tablet {
+          @include tablet {
+            display: block;
+          }
+        }
+      }
+    }
+
+    .navbar__right {
+      display: flex;
+      align-items: center;
+
+      .navbar__right-icon,
+      .navbar__profile-icon {
+        margin: 0px 15px;
+        cursor: pointer;
+      }
+
+      .navbar__right-img {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        object-fit: cover;
+        cursor: pointer;
+      }
+
+      .navbar__profile {
+        .navbar__profile-options {
+          display: none;
+          background-color: var(--main-color);
+          border-radius: 5px;
+        }
+
+        .navbar__profile-item {
+          padding: 10px;
+          cursor: pointer;
+        }
+
+        &:hover {
+          .options {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+          }
+        }
+      }
+    }
+  }
+}
