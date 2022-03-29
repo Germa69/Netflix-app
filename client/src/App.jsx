@@ -1,5 +1,6 @@
-import { useRef, useEffect } from "react";
 import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
+import { useRef, useEffect } from "react";
 
 import {
   BrowserRouter as Router,
@@ -29,6 +30,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
       </Routes>
 
       <div className="cursor" ref={cursorRef}></div>

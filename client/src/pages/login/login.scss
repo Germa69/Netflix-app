@@ -74,6 +74,16 @@
 
             .login__span {
                 color: lightgray;
+
+                .login__link {
+                    color: lightgray;
+                    text-decoration: none;
+                    margin-left: 5px;
+
+                    &:hover {
+                        color: red;
+                    }
+                }
             }
         }
     }
