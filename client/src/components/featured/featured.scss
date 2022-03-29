@@ -1,0 +1,96 @@
+@import "../../app.scss";
+
+.featured {
+  position: relative;
+  height: 76vh;
+
+  .featured__category {
+    position: absolute;
+    top: 80px;
+    left: 50px;
+
+    display: flex;
+    align-items: center;
+
+    font-size: 30px;
+    font-weight: 500;
+    color: white;
+
+    .featured__category-select {
+      z-index: 2;
+
+      border: 1px solid white;
+      margin-left: 20px;
+      padding: 5px;
+
+      background-color: var(--main-color);
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  .featured__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .featured__info {
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 35%;
+    left: 50px;
+    bottom: 60px;
+
+    color: white;
+
+    .featured__img {
+      width: 20vw;
+      margin-top: 100px;
+    }
+
+    .featured__desc {
+      margin: 20px 0px;
+
+      @include mobile {
+        width: 60vw;
+      }
+    }
+
+    .featured__buttons {
+      display: flex;
+
+      .featured__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: 500;
+        margin-right: 10px;
+        
+        cursor: pointer;
+
+        &.play {
+          background-color: white;
+          color: var(--main-color);
+        }
+
+        &.more {
+          background-color: gray;
+          color: white;
+        }
+
+        .featured__text {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
