@@ -1,8 +1,16 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+const dotenv = require('dotenv');
+const db = require('./config/db');
 
-const PORT = 8000;
+// Configure .env
+dotenv.config();
+
+const PORT = process.env.PORT;
+
+// Connect DB
+db.connect();
 
 // HTTP logger
 app.use(morgan('combined'));
