@@ -1,0 +1,25 @@
+.watch {
+    width: 100vw;
+    height: 100vh;
+
+    .watch__back {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 2;
+
+        display: flex;
+        align-items: center;
+        color: white;
+
+        cursor: pointer;
+
+        & span {
+            margin-left: 5px;
+        }
+    }
+
+    .watch__video {
+        overflow: hidden;
+    }
+}
