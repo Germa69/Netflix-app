@@ -31,12 +31,12 @@ export default function Login() {
                     />
                     <button className="login__btn">Sign In</button>
 
-                        <span className="login__span">
-                            New to Netflix? 
-                            <Link to="/register" className="login__link">
-                                Sign up now.
-                            </Link>
-                        </span>
+                    <span className="login__span">
+                        New to Netflix?
+                        <Link to="/register" className="login__link">
+                            Sign up now.
+                        </Link>
+                    </span>
 
                     <small>
                         This page is protected by Google reCAPTCHA to ensure

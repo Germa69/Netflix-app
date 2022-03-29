@@ -1,5 +1,6 @@
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+import NoMatch from "./pages/error/NoMatch";
 import { useRef, useEffect } from "react";
 
 import {
@@ -31,6 +32,8 @@ function App() {
       <Routes>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+
+        <Route path="*" element={<NoMatch />} />
       </Routes>
 
       <div className="cursor" ref={cursorRef}></div>
