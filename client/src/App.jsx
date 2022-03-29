@@ -5,48 +5,75 @@ import Watch from "./pages/watch/Watch";
 import NoMatch from "./pages/error/NoMatch";
 import { useRef, useEffect } from "react";
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
+    const user = false;
 
-  const cursorRef = useRef();
-  const cursorRef2 = useRef();
+    const cursorRef = useRef();
+    const cursorRef2 = useRef();
 
-  useEffect(() => {
-      const handleUserMouseMove = (e) => {
-          cursorRef.current.style.cssText = cursorRef2.current.style.cssText =
-              "left: " + e.clientX + "px; top: " + e.clientY + "px;";
-      };
+    useEffect(() => {
+        const handleUserMouseMove = (e) => {
+            cursorRef.current.style.cssText = cursorRef2.current.style.cssText =
+                "left: " + e.clientX + "px; top: " + e.clientY + "px;";
+        };
 
-      window.addEventListener("mousemove", handleUserMouseMove);
+        window.addEventListener("mousemove", handleUserMouseMove);
 
-      return () => {
-          window.removeEventListener("mousemove", handleUserMouseMove);
-      };
-  }, []);
+        return () => {
+            window.removeEventListener("mousemove", handleUserMouseMove);
+        };
+    }, []);
 
-  return (
-    <Router>
-      <Routes>
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+    return (
+        <Router>
+            <Routes>
+                <Route
+                    path="/register"
+                    element={!user ? <Register /> : <Navigate to="/" />}
+                />
+                <Route
+                    path="/login"
+                    element={!user ? <Login /> : <Navigate to="/" />}
+                />
 
-        <Route index path="/" element={<Home />} />
-        <Route path="/movies" element={<Home type="movies"/> } />
-        <Route path="/series" element={<Home type="series"/> } />
-        <Route path="/watch" element={<Watch /> } />
+                <Route
+                    path="/"
+                    element={user ? <Home /> : <Navigate to="/register" />}
+                />
+                <Route
+                    path="/movies"
+                    element={
+                        user ? (
+                            <Home type="movies" />
+                        ) : (
+                            <Navigate to="/register" />
+                        )
+                    }
+                />
+                <Route
+                    path="/series"
+                    element={
+                        user ? (
+                            <Home type="series" />
+                        ) : (
+                            <Navigate to="/register" />
+                        )
+                    }
+                />
+                <Route
+                    path="/watch"
+                    element={user ? <Watch /> : <Navigate to="/register" />}
+                />
 
-        <Route path="*" element={<NoMatch />} />
-      </Routes>
+                <Route path="*" element={<NoMatch />} />
+            </Routes>
 
-      <div className="cursor" ref={cursorRef}></div>
-      <div className="cursor2" ref={cursorRef2}></div>
-    </Router>
-  );
+            <div className="cursor" ref={cursorRef}></div>
+            <div className="cursor2" ref={cursorRef2}></div>
+        </Router>
+    );
 }
 
 export default App;
