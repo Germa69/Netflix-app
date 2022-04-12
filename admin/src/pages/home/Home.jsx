@@ -1,4 +1,6 @@
 import Chart from "../../components/chart/Chart";
+import Sidebar from "../../components/sidebar/Sidebar";
+import TopBar from "../../components/topBar/TopBar";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import WidgetSm from "../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
@@ -51,19 +53,25 @@ function Home() {
     }, [MONTHS]);
 
     return (
-        <div className="home">
-            <FeaturedInfo />
-            <Chart
-                data={userStats}
-                title="User Analytics"
-                grid
-                dataKey="New User"
-            />
-            <div className="home__widget">
-                <WidgetSm />
-                <WidgetLg />
+        <>
+            <TopBar />
+            <div className="container">
+                <Sidebar />
+                <div className="home">
+                <FeaturedInfo />
+                <Chart
+                    data={userStats}
+                    title="User Analytics"
+                    grid
+                    dataKey="New User"
+                />
+                <div className="home__widget">
+                    <WidgetSm />
+                    <WidgetLg />
+                </div>
             </div>
-        </div>
+            </div>
+        </>
     );
 }
 
