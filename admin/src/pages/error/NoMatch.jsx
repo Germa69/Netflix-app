@@ -4,13 +4,13 @@ import "./noMatch.scss";
 function NoMatch() {
 
     const handleContextMenu = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
     }
 
     return (
-        <div className="error-page" onContextMenu={handleContextMenu}>
+        <div class="error-page" onContextMenu={handleContextMenu}>
             <div className="stars">
-                <div className="error__navbar">
+                <div class="error__navbar">
                     <div className="error__navbar-logo">
                         <img
                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
@@ -60,7 +60,7 @@ function NoMatch() {
                     </div>
                 </div>
 
-                <div className="error__body">
+                <div class="error__body">
                     <img
                         src="http://salehriaz.com/404Page/img/404.svg"
                         alt=""
@@ -71,30 +71,30 @@ function NoMatch() {
                     </Link>
                 </div>
 
-                <div className="error__objects">
+                <div class="error__objects">
                     <img
-                        className="object_rocket"
+                        class="object_rocket"
                         src="http://salehriaz.com/404Page/img/rocket.svg"
                         alt=""
                         style={{ width: "40px" }}
                     />
-                    <div className="earth-moon">
+                    <div class="earth-moon">
                         <img
-                            className="object_earth"
+                            class="object_earth"
                             src="http://salehriaz.com/404Page/img/earth.svg"
                             alt=""
                             style={{ width: "100px" }}
                         />
                         <img
-                            className="object_moon"
+                            class="object_moon"
                             src="http://salehriaz.com/404Page/img/moon.svg"
                             alt=""
                             style={{ width: "80px" }}
                         />
                     </div>
-                    <div className="box_astronaut">
+                    <div class="box_astronaut">
                         <img
-                            className="object_astronaut"
+                            class="object_astronaut"
                             src="http://salehriaz.com/404Page/img/astronaut.svg"
                             alt=""
                             style={{ width: "140px" }}
@@ -102,12 +102,12 @@ function NoMatch() {
                     </div>
                 </div>
 
-                <div className="error__stars">
-                    <div className="star"></div>
-                    <div className="star"></div>
-                    <div className="star"></div>
-                    <div className="star"></div>
-                    <div className="star"></div>
+                <div class="error__stars">
+                    <div class="star"></div>
+                    <div class="star"></div>
+                    <div class="star"></div>
+                    <div class="star"></div>
+                    <div class="star"></div>
                 </div>
             </div>
         </div>

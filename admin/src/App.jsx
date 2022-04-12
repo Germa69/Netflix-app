@@ -6,6 +6,8 @@ import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/Login";
+import NoMatch from "./pages/error/NoMatch"; 
+import NoForbidden from "./pages/error/NoForbidden"; 
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext/AuthContext";
 import {
@@ -33,10 +35,12 @@ function App() {
                         <Route path="/user/:userId" element={<User />} />
                         <Route path="/newUser" element={<NewUser />} />
                         <Route path="/movies" element={<ProductList />} />
-                        <Route path="/product/:productId" element={<Product />} />
+                        <Route  path="/movie/:movieId" element={<Product />} />
                         <Route path="/newproduct" element={<NewProduct />} />
                     </>
                 }
+
+                <Route path="*" element={user ? <NoMatch /> : <NoForbidden />} />
             </Routes>
         </Router>
     );
