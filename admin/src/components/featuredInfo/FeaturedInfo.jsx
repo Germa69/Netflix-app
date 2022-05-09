@@ -5,7 +5,7 @@ export default function FeaturedInfo() {
     return (
         <div className="featured">
             <div className="featured__item">
-                <span className="featured__title">Revanue</span>
+                <span className="featured__title">Revenue</span>
                 <div className="featured__container">
                     <span className="featured__money">$2,415</span>
                     <span className="featured__rate">

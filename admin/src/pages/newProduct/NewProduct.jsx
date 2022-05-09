@@ -1,20 +1,86 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import TopBar from "../../components/topBar/TopBar";
+import storage from "../../firebase/config";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { createMovie } from "../../context/movieContext/ApiCalls";
+import { MovieContext } from "../../context/movieContext/MovieContext";
 import "./newProduct.scss";
 
 export default function NewProduct() {
     const [movie, setMovie] = useState(null);
     const [img, setImg] = useState(null);
-    const [subtitle, setSubTitle] = useState(null);
+    const [subTitle, setSubTitle] = useState(null);
     const [thumbnail, setThumbnail] = useState(null);
     const [trailer, setTrailer] = useState(null);
     const [video, setVideo] = useState(null);
+    const [uploaded, setUploaded] = useState(0);
+
+    const { dispatch } = useContext(MovieContext)
 
     const handleChange = (e) => {
         const value = e.target.value;
         setMovie({ ...movie, [e.target.name]: value });
     };
+
+    const upload = (items) => {
+        items.forEach((item) => {
+            const fileName = new Date().getTime() + item.label + item.file.name; 
+            const storageRef = ref(storage, `/items/${fileName}`);
+            const uploadTask = uploadBytesResumable(storageRef, item);
+
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    // Observe state change events such as progress, pause, and resume
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    const progress =
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log("Upload is " + progress + "% done");
+                    // switch (snapshot.state) {
+                    //     case "paused":
+                    //         console.log("Upload is paused");
+                    //         break;
+                    //     case "running":
+                    //         console.log("Upload is running");
+                    //         break;
+                    // }
+                },
+                (err) => {
+                    // Handle unsuccessful uploads
+                    console.log(err);
+                },
+                () => {
+                    // Handle successful uploads on complete
+                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                    getDownloadURL(uploadTask.snapshot.ref).then(
+                        (downloadURL) => {
+                            setMovie((prev) => {
+                                return { ...prev, [item.label]: downloadURL };
+                            });
+                            setUploaded(prev => prev + 1);
+                        }
+                    );
+                }
+            );
+        });
+    };
+
+    const handleUpload = (e) => {
+        e.preventDefault();
+        upload([
+            { file: img, label: "img" },
+            { file: subTitle, label: "subTitle" },
+            { file: thumbnail, label: "thumbnail" },
+            { file: trailer, label: "trailer" },
+            { file: video, label: "video" },
+        ]);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        createMovie(movie, dispatch)
+    }
 
     console.log(movie);
 
@@ -32,11 +98,17 @@ export default function NewProduct() {
                                 type="file"
                                 id="img"
                                 name="img"
+                                onChange={(e) => setImg(e.target.files[0])}
                             />
                         </div>
                         <div className="addProductItem">
                             <label>Title image</label>
-                            <input type="file" id="subtitle" name="subtitle" />
+                            <input
+                                type="file"
+                                id="subtitle"
+                                name="subtitle"
+                                onChange={(e) => setSubTitle(e.target.files[0])}
+                            />
                         </div>
                         <div className="addProductItem">
                             <label>Thumbnail</label>
@@ -44,6 +116,9 @@ export default function NewProduct() {
                                 type="file"
                                 id="thumbnail"
                                 name="thumbnail"
+                                onChange={(e) =>
+                                    setThumbnail(e.target.files[0])
+                                }
                             />
                         </div>
                         <div className="addProductItem">
@@ -113,13 +188,31 @@ export default function NewProduct() {
                         </div>
                         <div className="addProductItem">
                             <label>Trailer</label>
-                            <input type="file" name="trailer" />
+                            <input
+                                type="file"
+                                name="trailer"
+                                onChange={(e) => setTrailer(e.target.files[0])}
+                            />
                         </div>
                         <div className="addProductItem">
                             <label>Video</label>
-                            <input type="file" name="video" />
+                            <input
+                                type="file"
+                                name="video"
+                                onChange={(e) => setVideo(e.target.files[0])}
+                            />
                         </div>
-                        <button className="addProductButton">Create</button>
+
+                        {uploaded === 5 ? (
+                            <button className="addProductButton" onClick={handleSubmit}>Create</button>
+                        ) : (
+                            <button
+                                className="addProductButton"
+                                onClick={handleUpload}
+                            >
+                                Upload
+                            </button>
+                        )}
                     </form>
                 </div>
             </div>
