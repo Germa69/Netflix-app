@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import TopBar from "../../components/topBar/TopBar";
-import storage from "../../firebase/config";
+import { storage } from "../../firebase/config";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { createMovie } from "../../context/movieContext/ApiCalls";
 import { MovieContext } from "../../context/movieContext/MovieContext";
@@ -9,54 +9,48 @@ import "./newProduct.scss";
 
 export default function NewProduct() {
     const [movie, setMovie] = useState(null);
-    const [img, setImg] = useState(null);
+    const [image, setImage] = useState(null);
     const [subTitle, setSubTitle] = useState(null);
     const [thumbnail, setThumbnail] = useState(null);
     const [trailer, setTrailer] = useState(null);
     const [video, setVideo] = useState(null);
     const [uploaded, setUploaded] = useState(0);
 
-    const { dispatch } = useContext(MovieContext)
+    const { dispatch } = useContext(MovieContext);
 
     const handleChange = (e) => {
         const value = e.target.value;
         setMovie({ ...movie, [e.target.name]: value });
     };
 
+    // console.log(movie);
+    // console.log(image);
+    // console.log(subTitle);
+    // console.log(thumbnail);
+    // console.log(trailer);
+    // console.log(video);
+
     const upload = (items) => {
         items.forEach((item) => {
-            const fileName = new Date().getTime() + item.label + item.file.name; 
+            const fileName = new Date().getTime() + item.label + item.file.name;
             const storageRef = ref(storage, `/items/${fileName}`);
-            const uploadTask = uploadBytesResumable(storageRef, item);
+            const uploadTask = uploadBytesResumable(storageRef, item.file);
 
             uploadTask.on(
                 "state_changed",
                 (snapshot) => {
-                    // Observe state change events such as progress, pause, and resume
-                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                     const progress =
                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     console.log("Upload is " + progress + "% done");
-                    // switch (snapshot.state) {
-                    //     case "paused":
-                    //         console.log("Upload is paused");
-                    //         break;
-                    //     case "running":
-                    //         console.log("Upload is running");
-                    //         break;
-                    // }
                 },
                 (err) => {
-                    // Handle unsuccessful uploads
                     console.log(err);
                 },
                 () => {
-                    // Handle successful uploads on complete
-                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                     getDownloadURL(uploadTask.snapshot.ref).then(
-                        (downloadURL) => {
-                            setMovie((prev) => {
-                                return { ...prev, [item.label]: downloadURL };
+                        (url) => {
+                            setMovie(prev => {  
+                                return { ...prev, [item.label]: url }
                             });
                             setUploaded(prev => prev + 1);
                         }
@@ -69,7 +63,7 @@ export default function NewProduct() {
     const handleUpload = (e) => {
         e.preventDefault();
         upload([
-            { file: img, label: "img" },
+            { file: image, label: "image" },
             { file: subTitle, label: "subTitle" },
             { file: thumbnail, label: "thumbnail" },
             { file: trailer, label: "trailer" },
@@ -79,8 +73,8 @@ export default function NewProduct() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createMovie(movie, dispatch)
-    }
+        createMovie(movie, dispatch);
+    };
 
     console.log(movie);
 
@@ -90,28 +84,28 @@ export default function NewProduct() {
             <div className="container">
                 <Sidebar />
                 <div className="newProduct">
-                    <h1 className="addProductTitle">New Movie</h1>
+                    <h1 className="addProductTitle">Thêm phim</h1>
                     <form className="addProductForm">
                         <div className="addProductItem">
-                            <label>Image</label>
+                            <label>Hình ảnh [lớn]</label>
                             <input
                                 type="file"
-                                id="img"
-                                name="img"
-                                onChange={(e) => setImg(e.target.files[0])}
+                                id="image"
+                                name="image"
+                                onChange={(e) => setImage(e.target.files[0])}
                             />
                         </div>
                         <div className="addProductItem">
-                            <label>Title image</label>
+                            <label>Hình ảnh [nhỏ]</label>
                             <input
                                 type="file"
-                                id="subtitle"
-                                name="subtitle"
+                                id="subTitle"
+                                name="subTitle"
                                 onChange={(e) => setSubTitle(e.target.files[0])}
                             />
                         </div>
                         <div className="addProductItem">
-                            <label>Thumbnail</label>
+                            <label>Hình ảnh [thumbnail]</label>
                             <input
                                 type="file"
                                 id="thumbnail"
@@ -122,27 +116,27 @@ export default function NewProduct() {
                             />
                         </div>
                         <div className="addProductItem">
-                            <label>Title</label>
+                            <label>Tiêu đề</label>
                             <input
                                 type="text"
-                                placeholder="John Wick"
+                                placeholder="Nhập tiêu đề..."
                                 name="title"
                                 onChange={handleChange}
                             />
                         </div>
                         <div className="addProductItem">
-                            <label>Description</label>
+                            <label>Limit</label>
                             <input
-                                type="text"
-                                placeholder="description"
-                                name="desc"
+                                type="number"
+                                placeholder="limit"
+                                name="limit"
                                 onChange={handleChange}
                             />
                         </div>
                         <div className="addProductItem">
                             <label>Year</label>
                             <input
-                                type="text"
+                                type="number"
                                 placeholder="Year"
                                 name="year"
                                 onChange={handleChange}
@@ -157,7 +151,7 @@ export default function NewProduct() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className="addProductItem">
+                        {/* <div className="addProductItem">
                             <label>Duration</label>
                             <input
                                 type="text"
@@ -165,15 +159,15 @@ export default function NewProduct() {
                                 name="duration"
                                 onChange={handleChange}
                             />
-                        </div>
+                        </div> */}
                         <div className="addProductItem">
-                            <label>Limit</label>
-                            <input
-                                type="text"
-                                placeholder="limit"
-                                name="limit"
+                            <label>Mô tả</label>
+                            <textarea
+                                name="desc"
+                                rows="5"
+                                placeholder="Nhập mô tả..."
                                 onChange={handleChange}
-                            />
+                            ></textarea>
                         </div>
                         <div className="addProductItem">
                             <label>Is Series?</label>
@@ -204,13 +198,18 @@ export default function NewProduct() {
                         </div>
 
                         {uploaded === 5 ? (
-                            <button className="addProductButton" onClick={handleSubmit}>Create</button>
+                            <button
+                                className="addProductButton"
+                                onClick={handleSubmit}
+                            >
+                                Thêm
+                            </button>
                         ) : (
                             <button
                                 className="addProductButton"
                                 onClick={handleUpload}
                             >
-                                Upload
+                                Tải lên
                             </button>
                         )}
                     </form>
