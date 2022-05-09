@@ -4,59 +4,37 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import TopBar from "../../components/topBar/TopBar";
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import { MovieContext } from "../../context/movieContext/MovieContext";
-import { getMovies, deleteMovie } from "../../context/movieContext/ApiCalls";
-import "./productList.scss";
+import { ListContext } from "../../context/listContext/ListContext";
+import { getLists, deleteList } from "../../context/listContext/ApiCalls";
+import "./listList.scss";
 
-export default function ProductList() {
-    const { movies, dispatch } = useContext(MovieContext);
+export default function ListList() {
+    const { lists, dispatch } = useContext(ListContext);
 
     useEffect(() => {
-        getMovies(dispatch);
+        getLists(dispatch);
     }, [dispatch]);
 
     const handleDelete = (id) => {
-        deleteMovie(id, dispatch);
+        deleteList(id, dispatch);
     };
 
     const columns = [
-        { field: "_id", headerName: "ID", width: 300 },
+        { field: "_id", headerName: "ID", width: 350 },
         {
-            field: "movie",
-            headerName: "Movie",
-            width: 200,
-            renderCell: (params) => {
-                return (
-                    <div className="productList__item">
-                        <img
-                            className="productList__img"
-                            src={params.row.image}
-                            alt=""
-                        />
-                        {params.row.title}
-                    </div>
-                );
-            },
+            field: "title",
+            headerName: "Title",
+            width: 350,
         },
         {
             field: "genre",
             headerName: "Genre",
-            width: 120,
+            width: 150,
         },
         {
-            field: "year",
-            headerName: "Year",
-            width: 120,
-        },
-        {
-            field: "limit",
-            headerName: "Limit",
-            width: 120,
-        },
-        {
-            field: "isSeries",
-            headerName: "isSeries",
-            width: 120,
+            field: "type",
+            headerName: "Type",
+            width: 150,
         },
         {
             field: "action",
@@ -66,8 +44,8 @@ export default function ProductList() {
                 return (
                     <>
                         <Link
-                            to={"/movie/" + params.row._id}
-                            state={{ movie: params.row }}
+                            to={"/list/" + params.row._id}
+                            state={{ list: params.row }}
                         >
                             <button className="productList__edit">Edit</button>
                         </Link>
@@ -101,7 +79,7 @@ export default function ProductList() {
                     </ul>
 
                     <DataGrid
-                        rows={movies}
+                        rows={lists}
                         disableSelectionOnClick
                         columns={columns}
                         pageSize={8}
