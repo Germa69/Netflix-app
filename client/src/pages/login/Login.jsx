@@ -1,10 +1,24 @@
+import { useState, useContext } from 'react';
 import { Link } from "react-router-dom";
+import { AuthContext } from '../../context/authContext/AuthContext';
+import { login } from '../../context/authContext/ApiCalls';
 import "./login.scss";
 
 export default function Login() {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const { dispatch } = useContext(AuthContext);
+
     const handleContextMenu = (e) => {
         e.preventDefault();
     };
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        login({ email, password}, dispatch);
+    }
 
     return (
         <div className="login" onContextMenu={handleContextMenu}>
@@ -18,29 +32,30 @@ export default function Login() {
 
             <div className="login__wrap">
                 <form className="login__form">
-                    <h1>Sign In</h1>
+                    <h1>Đăng nhập</h1>
                     <input
                         type="email"
-                        placeholder="Email or phone number"
+                        placeholder="Nhập email hoặc số điện thoại"
                         className="login__input"
+                        onChange={e => setEmail(e.target.value)}
                     />
                     <input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Nhập mật khẩu"
                         className="login__input"
+                        onChange={e => setPassword(e.target.value)}
                     />
-                    <button className="login__btn">Sign In</button>
+                    <button className="login__btn" onClick={handleLogin}>Đăng nhập</button>
 
                     <span className="login__span">
-                        New to Netflix?
+                        Bạn mới sử dụng Netflix?
                         <Link to="/register" className="login__link">
-                            Sign up now.
+                            Đăng ký.
                         </Link>
                     </span>
 
                     <small>
-                        This page is protected by Google reCAPTCHA to ensure
-                        you're not a bot. <b>Learn more</b>.
+                    Trang này được bảo vệ bởi reCAPTCHA của Google để đảm bảo bạn không phải là bot.<b>Tìm hiểu thêm.</b>.
                     </small>
                 </form>
             </div>

@@ -8,8 +8,8 @@ import NewProduct from "./pages/newProduct/NewProduct";
 import ListList from "./pages/listList/ListList";
 import List from "./pages/list/List";
 import Login from "./pages/login/Login";
-import NoMatch from "./pages/error/NoMatch"; 
-import NoForbidden from "./pages/error/NoForbidden"; 
+import NoMatch from "./pages/error/NoMatch";
+import NoForbidden from "./pages/error/NoForbidden";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext/AuthContext";
 import {
@@ -29,24 +29,27 @@ function App() {
             <Routes>
                 <Route
                     path="/login"
-                    element={user ? <Navigate to="/" /> :<Login />}
+                    element={user ? <Navigate to="/" /> : <Login />}
                 />
-                { user && 
-                    <>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/users" element={<UserList />} />
-                        <Route path="/user/:userId" element={<User />} />
-                        <Route path="/newUser" element={<NewUser />} />
-                        <Route path="/movies" element={<ProductList />} />
-                        <Route  path="/movie/:movieId" element={<Product />} />
-                        <Route path="/newproduct" element={<NewProduct />} />
-                        <Route path="/lists" element={<ListList />} />
-                        <Route path="/list/:listId" element={<List />} />
-                        <Route path="/newlist" element={<NewList />} />
-                    </>
-                }
 
-                <Route path="*" element={user ? <NoMatch /> : <NoForbidden />} />
+                <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
+
+                <Route path="users" element={user ? <UserList /> : <Navigate to="/login" />} />
+                <Route path="/user/:userId" element={user ? <User /> : <Navigate to="/login" />} />
+                <Route path="newUser" element={user ? <NewUser /> : <Navigate to="/login" />} />
+
+                <Route path="/movies" element={user ? <ProductList /> : <Navigate to="/login" />} />
+                <Route path="/movie/:movieId" element={user ? <Product /> : <Navigate to="/login" />} />
+                <Route path="/newproduct" element={user ? <NewProduct /> : <Navigate to="/login" />} />
+                
+                <Route path="/lists" element={user ? <ListList /> : <Navigate to="/login" />} />
+                <Route path="/list/:listId" element={user ? <List /> : <Navigate to="/login" />} />
+                <Route path="/newlist" element={user ? <NewList /> : <Navigate to="/login" />} />
+
+                <Route
+                    path="*"
+                    element={user ? <NoForbidden /> : <NoMatch />}
+                />
             </Routes>
         </Router>
     );

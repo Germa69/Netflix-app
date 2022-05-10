@@ -23,13 +23,6 @@ export default function NewProduct() {
         setMovie({ ...movie, [e.target.name]: value });
     };
 
-    // console.log(movie);
-    // console.log(image);
-    // console.log(subTitle);
-    // console.log(thumbnail);
-    // console.log(trailer);
-    // console.log(video);
-
     const upload = (items) => {
         items.forEach((item) => {
             const fileName = new Date().getTime() + item.label + item.file.name;

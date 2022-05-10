@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./featured.scss";
 
-function Featured({ type }) {
+function Featured({ type, setGenre }) {
     const [content, setContent] = useState({});
 
     useEffect(() => {
@@ -11,7 +11,10 @@ function Featured({ type }) {
             try {
                 const res = await axios.get(`/movies/random?type=${type}`, {
                     headers: {
-                        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyM2MzN2FlZjMyZTE1ZWM1NmQ0ZTRhNiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0ODU3OTA3MCwiZXhwIjoxNjQ5MDExMDcwfQ.TqEMzLpqfnQ00Mv0sKw1RNvrqnDXaZFm3Tl28yw0EcE",
+                        token:
+                            "Bearer " +
+                            JSON.parse(localStorage.getItem("user"))
+                                .accessToken,
                     },
                 });
                 setContent(res.data[0]);
@@ -27,7 +30,11 @@ function Featured({ type }) {
             {type && (
                 <div className="featured__category">
                     <span>{type === "movies" ? "Movies" : "Series"}</span>
-                    <select name="genre" className="featured__category-select">
+                    <select
+                        name="genre"
+                        className="featured__category-select"
+                        onChange={(e) => setGenre(e.target.value)}
+                    >
                         <option>Genre</option>
                         <option value="adventure">Adventure</option>
                         <option value="comedy">Comedy</option>

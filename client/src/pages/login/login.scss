@@ -45,6 +45,10 @@
             flex-direction: column;
             justify-content: space-around;
 
+            h1 {
+                text-align: center;
+            }
+
             .login__input {
                 height: 40px;
                 border-radius: 5px;

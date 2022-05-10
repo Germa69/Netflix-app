@@ -3,12 +3,14 @@ import Register from "./pages/register/Register";
 import Home from "./pages/home/Home";
 import Watch from "./pages/watch/Watch";
 import NoMatch from "./pages/error/NoMatch";
-import { useRef, useEffect } from "react";
 
+import { useRef, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { AuthContext } from "./context/authContext/AuthContext";
+
 
 function App() {
-    const user = false;
+    const { user } = useContext(AuthContext);
 
     const cursorRef = useRef();
     const cursorRef2 = useRef();
@@ -42,6 +44,7 @@ function App() {
                     path="/"
                     element={user ? <Home /> : <Navigate to="/register" />}
                 />
+
                 <Route
                     path="/movies"
                     element={

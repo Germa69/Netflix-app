@@ -20,7 +20,8 @@ function Home({ type }) {
                     {
                         headers: {
                             token:
-                            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyM2MzN2FlZjMyZTE1ZWM1NmQ0ZTRhNiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0ODU3OTA3MCwiZXhwIjoxNjQ5MDExMDcwfQ.TqEMzLpqfnQ00Mv0sKw1RNvrqnDXaZFm3Tl28yw0EcE",
+                                "Bearer " +
+                                JSON.parse(localStorage.getItem("user")).accessToken,
                         },
                     }
                 )

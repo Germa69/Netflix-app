@@ -71,8 +71,8 @@ export default function NewList() {
                                 id="type"
                                 onChange={handleChange}
                             >
-                                <option>Type</option>
-                                <option value="movie">Movie</option>
+                                <option disabled>Type</option>
+                                <option value="movies">Movies</option>
                                 <option value="series">Series</option>
                             </select>
                         </div>
