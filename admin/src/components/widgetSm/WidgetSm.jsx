@@ -1,5 +1,6 @@
 import { Visibility } from "@material-ui/icons";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "./widgetSm.scss";
 
@@ -13,7 +14,8 @@ export default function WidgetSm() {
                     headers: {
                         token:
                             "Bearer " +
-                            JSON.parse(localStorage.getItem("user")).accessToken,
+                            JSON.parse(localStorage.getItem("user"))
+                                .accessToken,
                     },
                 });
                 setNewUsers(res.data);
@@ -26,7 +28,7 @@ export default function WidgetSm() {
 
     return (
         <div className="widgetSm">
-            <span className="widgetSm__title">New Join Members</span>
+            <span className="widgetSm__title">Thành viên mới tham gia</span>
             <ul className="widgetSm__list">
                 {newUsers.map((user, index) => (
                     <li className="widgetSm__item" key={index}>
@@ -43,10 +45,16 @@ export default function WidgetSm() {
                                 {user.username}
                             </span>
                         </div>
-                        <button className="widgetSm__btn">
-                            <Visibility className="widgetSm__icon" />
-                            Display
-                        </button>
+                        <Link
+                            to={"/user/" + user._id}
+                            state={{ user: user }}
+                            className="widgetSm__link"
+                        >
+                            <button className="widgetSm__btn">
+                                <Visibility className="widgetSm__icon" />
+                                Hiển thị
+                            </button>
+                        </Link>
                     </li>
                 ))}
             </ul>

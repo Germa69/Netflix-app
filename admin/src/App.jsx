@@ -1,12 +1,12 @@
 import Home from "./pages/home/Home";
-import UserList from "./pages/userList/UserList";
-import User from "./pages/user/User";
-import NewUser from "./pages/newUser/NewUser";
-import ProductList from "./pages/productList/ProductList";
-import Product from "./pages/product/Product";
-import NewProduct from "./pages/newProduct/NewProduct";
-import ListList from "./pages/listList/ListList";
-import List from "./pages/list/List";
+import UserList from "./pages/user/userList/UserList";
+import UserInfo from "./pages/user/userInfo/UserInfo";
+import MovieList from "./pages/movie/movieList/MovieList";
+import MovieEdit from "./pages/movie/movieEdit/MovieEdit";
+import MovieAdd from "./pages/movie/movieAdd/MovieAdd";
+import ListList from "./pages/list/listList/ListList";
+import ListEdit from "./pages/list/listEdit/ListEdit";
+import ListAdd from "./pages/list/listAdd/ListAdd";
 import Login from "./pages/login/Login";
 import NoMatch from "./pages/error/NoMatch";
 import NoForbidden from "./pages/error/NoForbidden";
@@ -19,7 +19,6 @@ import {
     Navigate,
 } from "react-router-dom";
 import "./app.scss";
-import NewList from "./pages/newList/NewList";
 
 function App() {
     const { user } = useContext(AuthContext);
@@ -35,20 +34,19 @@ function App() {
                 <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
 
                 <Route path="users" element={user ? <UserList /> : <Navigate to="/login" />} />
-                <Route path="/user/:userId" element={user ? <User /> : <Navigate to="/login" />} />
-                <Route path="newUser" element={user ? <NewUser /> : <Navigate to="/login" />} />
+                <Route path="/user/:userId" element={user ? <UserInfo /> : <Navigate to="/login" />} />
 
-                <Route path="/movies" element={user ? <ProductList /> : <Navigate to="/login" />} />
-                <Route path="/movie/:movieId" element={user ? <Product /> : <Navigate to="/login" />} />
-                <Route path="/newproduct" element={user ? <NewProduct /> : <Navigate to="/login" />} />
+                <Route path="/movies" element={user ? <MovieList /> : <Navigate to="/login" />} />
+                <Route path="/movie/:movieId" element={user ? <MovieEdit /> : <Navigate to="/login" />} />
+                <Route path="/movie/add" element={user ? <MovieAdd /> : <Navigate to="/login" />} />
                 
                 <Route path="/lists" element={user ? <ListList /> : <Navigate to="/login" />} />
-                <Route path="/list/:listId" element={user ? <List /> : <Navigate to="/login" />} />
-                <Route path="/newlist" element={user ? <NewList /> : <Navigate to="/login" />} />
+                <Route path="/list/:listId" element={user ? <ListEdit /> : <Navigate to="/login" />} />
+                <Route path="/list/add" element={user ? <ListAdd /> : <Navigate to="/login" />} />
 
                 <Route
                     path="*"
-                    element={user ? <NoForbidden /> : <NoMatch />}
+                    element={<NoMatch />}
                 />
             </Routes>
         </Router>

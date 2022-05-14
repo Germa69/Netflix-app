@@ -1,0 +1,114 @@
+.list {
+  display: flex;
+  padding: 20px;
+
+  .list-container {
+      flex: 4;
+      align-items: center;
+      justify-content: space-between;
+
+      .list__top {
+          padding: 20px;
+          margin: 20px 0 10px;
+          -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+
+          .list__info-top {
+              display: flex;
+              align-items: center;
+
+              .list__info-img {
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  object-fit: cover;
+                  margin-right: 20px;
+              }
+
+              .list__info-title {
+                  font-weight: 600;
+              }
+          }
+
+          .list__info-bottom {
+              margin-top: 16px;
+
+              .list__item {
+                  width: 150px;
+                  display: flex;
+                  justify-content: space-between;
+
+                  .list__item-key {
+                      margin-right: 20px;
+                  }
+
+                  .list__item-value {
+                      font-weight: 300;
+                  }
+              }
+          }
+      }
+
+      .list__bottom {
+          padding: 20px;
+          margin: 10px 0 20px;
+          -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+
+          .list__form {
+              display: flex;
+              justify-content: space-between;
+
+              .list__form-left {
+                  display: flex;
+                  flex-direction: column;
+              }
+
+              .list__form-left > label {
+                  margin-bottom: 10px;
+                  color: gray;
+              }
+
+              .list__form-left > input {
+                  margin-bottom: 10px;
+                  border: none;
+                  padding: 5px;
+                  border-bottom: 1px solid gray;
+              }
+
+              .list__form-left > select {
+                  margin-bottom: 10px;
+              }
+
+              .list__form-right {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-around;
+
+                  .list__upload {
+                      display: flex;
+                      align-items: center;
+
+                      .list__upload-img {
+                          width: 100px;
+                          height: 100px;
+                          border-radius: 10px;
+                          object-fit: cover;
+                          margin-right: 20px;
+                      }
+                  }
+
+                  .list__button {
+                      border: none;
+                      padding: 5px;
+                      border-radius: 5px;
+                      background-color: darkblue;
+                      color: white;
+                      font-weight: 600;
+                      cursor: pointer;
+                  }
+              }
+          }
+      }
+  }
+}

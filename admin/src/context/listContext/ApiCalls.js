@@ -24,7 +24,7 @@ export const getLists = async (dispatch) => {
         });
         dispatch(getListsSuccess(res.data));
     } catch (err) {
-        dispatch(getListsFailure(err));
+        dispatch(getListsFailure());
     }
 };
 
@@ -41,7 +41,7 @@ export const createList = async (list, dispatch) => {
         });
         dispatch(createListSuccess(res.data));
     } catch (err) {
-        dispatch(createListFailure(err));
+        dispatch(createListFailure());
     }
 };
 
@@ -58,6 +58,6 @@ export const deleteList = async (id, dispatch) => {
         });
         dispatch(deleteListSuccess(id));
     } catch (err) {
-        dispatch(deleteListFailure(err));
+        dispatch(deleteListFailure());
     }
 };

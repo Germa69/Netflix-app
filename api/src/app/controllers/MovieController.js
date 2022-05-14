@@ -3,9 +3,13 @@ const Movie = require("../models/Movie");
 class MovieController {
     // [GET] (GET ALL) /api/movies/
     async all(req, res) {
+        const query = req.query.new;
+
         if (req.user.isAdmin) {
             try {
-                const movies = await Movie.find();
+                const movies = query
+                    ? await Movie.find().limit(5)
+                    : await Movie.find();
                 res.status(200).json(movies.reverse());
             } catch (err) {
                 res.status(500).json(err);

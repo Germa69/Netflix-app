@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { login } from '../../context/authContext/ApiCalls';
 import { AuthContext } from "../../context/authContext/AuthContext";
@@ -30,17 +29,17 @@ export default function Login() {
 
             <div className="login__wrap">
                 <form className="login__form">
-                    <h1>Sign In</h1>
+                    <h1>Đăng nhập</h1>
                     <input
                         type="email"
-                        placeholder="Email or phone number"
+                        placeholder="Nhập Email hoặc số điện thoại"
                         className="login__input"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Nhập mật khẩu"
                         className="login__input"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -50,19 +49,12 @@ export default function Login() {
                         onClick={handleLogin}
                         disabled={isFetching}
                     >
-                        Sign In
+                        Đăng nhập
                     </button>
 
-                    <span className="login__span">
-                        New to Netflix?
-                        <Link to="/register" className="login__link">
-                            Sign up now.
-                        </Link>
-                    </span>
-
                     <small>
-                        This page is protected by Google reCAPTCHA to ensure
-                        you're not a bot. <b>Learn more</b>.
+                        Trang này được bảo vệ bởi reCAPTCHA của Google để đảm bảo
+                        bạn không phải là một bot. <b> Tìm hiểu thêm </b>.
                     </small>
                 </form>
             </div>

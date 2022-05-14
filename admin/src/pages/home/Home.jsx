@@ -2,9 +2,9 @@ import Chart from "../../components/chart/Chart";
 import Sidebar from "../../components/sidebar/Sidebar";
 import TopBar from "../../components/topBar/TopBar";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
+import { useEffect, useState, useMemo } from "react";
 import WidgetSm from "../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
-import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import "./home.scss";
 

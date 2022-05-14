@@ -1,15 +1,16 @@
 import { DataGrid } from "@material-ui/data-grid";
-import { DeleteOutline, Home } from "@material-ui/icons";
-import Sidebar from "../../components/sidebar/Sidebar";
-import TopBar from "../../components/topBar/TopBar";
-import { Link } from "react-router-dom";
+import { DeleteOutline, Home, AddOutlined } from "@material-ui/icons";
+import Sidebar from "../../../components/sidebar/Sidebar";
+import TopBar from "../../../components/topBar/TopBar";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import { ListContext } from "../../context/listContext/ListContext";
-import { getLists, deleteList } from "../../context/listContext/ApiCalls";
+import { ListContext } from "../../../context/listContext/ListContext";
+import { getLists, deleteList } from "../../../context/listContext/ApiCalls";
 import "./listList.scss";
 
 export default function ListList() {
     const { lists, dispatch } = useContext(ListContext);
+    let navigate = useNavigate();
 
     useEffect(() => {
         getLists(dispatch);
@@ -19,26 +20,31 @@ export default function ListList() {
         deleteList(id, dispatch);
     };
 
+    const handleRedirectAdd = () => {
+        navigate('/list/add');
+    }
+
+
     const columns = [
-        { field: "_id", headerName: "ID", width: 350 },
+        { field: "_id", headerName: "Mã", width: 350 },
         {
             field: "title",
-            headerName: "Title",
+            headerName: "Tiêu đề",
             width: 350,
         },
         {
             field: "genre",
-            headerName: "Genre",
+            headerName: "Thể loại",
             width: 150,
         },
         {
             field: "type",
-            headerName: "Type",
+            headerName: "Loại",
             width: 150,
         },
         {
             field: "action",
-            headerName: "Action",
+            headerName: "Hành động",
             width: 150,
             renderCell: (params) => {
                 return (
@@ -47,10 +53,10 @@ export default function ListList() {
                             to={"/list/" + params.row._id}
                             state={{ list: params.row }}
                         >
-                            <button className="productList__edit">Edit</button>
+                            <button className="listList__edit">Edit</button>
                         </Link>
                         <DeleteOutline
-                            className="productList__delete"
+                            className="listList__delete"
                             onClick={() => handleDelete(params.row._id)}
                         />
                     </>
@@ -64,7 +70,9 @@ export default function ListList() {
             <TopBar />
             <div className="container">
                 <Sidebar />
-                <div className="productList">
+                <div className="listList">
+                <div className="wrapped">
+
                     <ul id="breadcrumbs">
                         <li>
                             <Link to="/">
@@ -72,11 +80,17 @@ export default function ListList() {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/" className="current">
-                                Current crumb
-                            </Link>
+                            <span className="current">
+                                Danh sách thể loại
+                            </span>
                         </li>
                     </ul>
+
+                    <button className="listList__btn" onClick={handleRedirectAdd}>
+                            <AddOutlined /> 
+                            Thêm
+                        </button>
+                </div>
 
                     <DataGrid
                         rows={lists}

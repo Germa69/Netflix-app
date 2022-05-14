@@ -1,0 +1,55 @@
+.listList {
+    flex: 4;
+    padding-right: 16px;
+
+    .wrapped {
+        display: flex;
+        justify-content: space-between;
+
+        #breadcrumbs {
+            flex: 1;
+        }
+
+        .listList__btn {
+            display: flex;
+            align-items: center;
+
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: darkturquoise;
+            color: white;
+            font-weight: 600;
+            margin: 0 16px 16px;
+            cursor: pointer;
+        }
+    }
+
+    .listList__item {
+        display: flex;
+        align-items: center;
+
+        .listList__img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+    }
+
+    .listList__edit {
+        border: none;
+        border-radius: 10px;
+        padding: 5px 10px;
+        background-color: #3bb077;
+        color: white;
+        margin: 14px 20px 0;
+        cursor: pointer;
+    }
+
+    .listList__delete {
+        color: red;
+        cursor: pointer;
+    }
+}

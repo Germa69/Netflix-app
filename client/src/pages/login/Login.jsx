@@ -17,7 +17,7 @@ export default function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        login({ email, password}, dispatch);
+        login({ email, password }, dispatch);
     }
 
     return (

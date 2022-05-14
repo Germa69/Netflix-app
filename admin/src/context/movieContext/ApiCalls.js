@@ -24,7 +24,7 @@ export const getMovies = async (dispatch) => {
         });
         dispatch(getMoviesSuccess(res.data));
     } catch (err) {
-        dispatch(getMoviesFailure(err));
+        dispatch(getMoviesFailure());
     }
 };
 
@@ -41,7 +41,7 @@ export const createMovie = async (movie, dispatch) => {
         });
         dispatch(createMovieSuccess(res.data));
     } catch (err) {
-        dispatch(createMovieFailure(err));
+        dispatch(createMovieFailure());
     }
 };
 
@@ -58,6 +58,6 @@ export const deleteMovie = async (id, dispatch) => {
         });
         dispatch(deleteMovieSuccess(id));
     } catch (err) {
-        dispatch(deleteMovieFailure(err));
+        dispatch(deleteMovieFailure());
     }
 };

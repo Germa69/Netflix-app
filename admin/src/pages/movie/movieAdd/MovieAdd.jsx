@@ -1,11 +1,13 @@
 import { useState, useContext } from "react";
-import Sidebar from "../../components/sidebar/Sidebar";
-import TopBar from "../../components/topBar/TopBar";
-import { storage } from "../../firebase/config";
+import Sidebar from "../../../components/sidebar/Sidebar";
+import TopBar from "../../../components/topBar/TopBar";
+import { storage } from "../../../firebase/config";
+import { Home } from "@material-ui/icons";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { createMovie } from "../../context/movieContext/ApiCalls";
-import { MovieContext } from "../../context/movieContext/MovieContext";
-import "./newProduct.scss";
+import { Link } from "react-router-dom";
+import { createMovie } from "../../../context/movieContext/ApiCalls";
+import { MovieContext } from "../../../context/movieContext/MovieContext";
+import "./movieAdd.scss";
 
 export default function NewProduct() {
     const [movie, setMovie] = useState(null);
@@ -40,14 +42,12 @@ export default function NewProduct() {
                     console.log(err);
                 },
                 () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then(
-                        (url) => {
-                            setMovie(prev => {  
-                                return { ...prev, [item.label]: url }
-                            });
-                            setUploaded(prev => prev + 1);
-                        }
-                    );
+                    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                        setMovie((prev) => {
+                            return { ...prev, [item.label]: url };
+                        });
+                        setUploaded((prev) => prev + 1);
+                    });
                 }
             );
         });
@@ -69,17 +69,28 @@ export default function NewProduct() {
         createMovie(movie, dispatch);
     };
 
-    console.log(movie);
-
     return (
         <>
             <TopBar />
             <div className="container">
                 <Sidebar />
-                <div className="newProduct">
-                    <h1 className="addProductTitle">Thêm phim</h1>
-                    <form className="addProductForm">
-                        <div className="addProductItem">
+                <div className="movies">
+                    <ul id="breadcrumbs">
+                        <li>
+                            <Link to="/">
+                                <Home />
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/movies">Danh sách phim</Link>
+                        </li>
+                        <li>
+                            <span className="current">Thêm phim</span>
+                        </li>
+                    </ul>
+
+                    <form className="movie__form">
+                        <div className="movie__form-item">
                             <label>Hình ảnh [lớn]</label>
                             <input
                                 type="file"
@@ -88,7 +99,7 @@ export default function NewProduct() {
                                 onChange={(e) => setImage(e.target.files[0])}
                             />
                         </div>
-                        <div className="addProductItem">
+                        <div className="movie__form-item">
                             <label>Hình ảnh [nhỏ]</label>
                             <input
                                 type="file"
@@ -97,7 +108,7 @@ export default function NewProduct() {
                                 onChange={(e) => setSubTitle(e.target.files[0])}
                             />
                         </div>
-                        <div className="addProductItem">
+                        <div className="movie__form-item">
                             <label>Hình ảnh [thumbnail]</label>
                             <input
                                 type="file"
@@ -108,7 +119,7 @@ export default function NewProduct() {
                                 }
                             />
                         </div>
-                        <div className="addProductItem">
+                        <div className="movie__form-item">
                             <label>Tiêu đề</label>
                             <input
                                 type="text"
@@ -117,8 +128,8 @@ export default function NewProduct() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className="addProductItem">
-                            <label>Limit</label>
+                        <div className="movie__form-item">
+                            <label>Độ dài</label>
                             <input
                                 type="number"
                                 placeholder="limit"
@@ -126,8 +137,8 @@ export default function NewProduct() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className="addProductItem">
-                            <label>Year</label>
+                        <div className="movie__form-item">
+                            <label>Năm xuất bản</label>
                             <input
                                 type="number"
                                 placeholder="Year"
@@ -135,8 +146,8 @@ export default function NewProduct() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className="addProductItem">
-                            <label>Genre</label>
+                        <div className="movie__form-item">
+                            <label>Thể loại</label>
                             <input
                                 type="text"
                                 placeholder="Genre"
@@ -144,7 +155,7 @@ export default function NewProduct() {
                                 onChange={handleChange}
                             />
                         </div>
-                        {/* <div className="addProductItem">
+                        {/* <div className="movie__form-item">
                             <label>Duration</label>
                             <input
                                 type="text"
@@ -153,7 +164,7 @@ export default function NewProduct() {
                                 onChange={handleChange}
                             />
                         </div> */}
-                        <div className="addProductItem">
+                        <div className="movie__form-item">
                             <label>Mô tả</label>
                             <textarea
                                 name="desc"
@@ -162,7 +173,7 @@ export default function NewProduct() {
                                 onChange={handleChange}
                             ></textarea>
                         </div>
-                        <div className="addProductItem">
+                        <div className="movie__form-item">
                             <label>Is Series?</label>
                             <select
                                 name="isSeries"
@@ -173,7 +184,7 @@ export default function NewProduct() {
                                 <option value="true">Yes</option>
                             </select>
                         </div>
-                        <div className="addProductItem">
+                        <div className="movie__form-item">
                             <label>Trailer</label>
                             <input
                                 type="file"
@@ -181,7 +192,7 @@ export default function NewProduct() {
                                 onChange={(e) => setTrailer(e.target.files[0])}
                             />
                         </div>
-                        <div className="addProductItem">
+                        <div className="movie__form-item">
                             <label>Video</label>
                             <input
                                 type="file"
@@ -192,14 +203,14 @@ export default function NewProduct() {
 
                         {uploaded === 5 ? (
                             <button
-                                className="addProductButton"
+                                className="movie__form-button"
                                 onClick={handleSubmit}
                             >
                                 Thêm
                             </button>
                         ) : (
                             <button
-                                className="addProductButton"
+                                className="movie__form-button"
                                 onClick={handleUpload}
                             >
                                 Tải lên
